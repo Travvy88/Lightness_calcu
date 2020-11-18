@@ -4,8 +4,7 @@
 #include <string>
 using namespace std;
 
-class Matrix
-{
+class Matrix {
 public:
     Matrix(int, int);
     Matrix(const Matrix &other);
@@ -19,6 +18,7 @@ public:
 
     void save(string filename) const;
     void read(string filename) const;
+    bool operator==(const Matrix&) const;
 
 private:
     int n, m;

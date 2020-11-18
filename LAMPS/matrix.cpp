@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "lamp.h"
+#include "led.h"
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
@@ -20,8 +21,6 @@ Matrix::Matrix(int n_, int m_) {
     matrix = new Lamp*[n];
     for (int i = 0; i < m; ++i)
         matrix[i] = new Lamp[m];
-
-
 }
 
 Matrix::Matrix(const Matrix &other) {
@@ -58,18 +57,14 @@ int Matrix::getNumberOfObjects() const {
 }
 
 double  Matrix::countLight(const int x, const int y, const int z, float height) const {
-
-
-        /* Метод позволяющий рассчитать освещенность произвольной точки помещения
-         * Входные параметры: x,y,z(координаты точки) , высота помещения
-         */
+        // height - высота комнаты
         if (z < height && z>=0 && x>=0 && x <= n
                 && y >= 0 && y <= m) {
             float curIntensity;
             double illuminance = 0;
             for (int i = 0; i < n; i++) {
                 curIntensity =0;
-                for (int j = 0; j < m; j++){
+                for (int j = 0; j < m; j++) {
                     illuminance += (curIntensity) * (height-z)/
                                    pow((pow(i-x+1, 2) + pow(j-y+1, 2) +
                                         pow(height-z, 2)), 3/2);
@@ -78,7 +73,7 @@ double  Matrix::countLight(const int x, const int y, const int z, float height) 
             return illuminance;
         }
         else
-            throw 2; //координаты выходят за рамки помещения
+            return -1; //координаты выходят за рамки помещения
 }
 
 Matrix::~Matrix(){
@@ -89,7 +84,8 @@ void Matrix::save(string filename) const{
     ofstream file(filename);
     for (int i=0;i<n;i++)
         for (int j=0;j<m;j++) {
-            file << matrix[i][j].getPower() <<" "<< matrix[i][j].getIntencity() << '\n';
+            file << matrix[i][j].getPower() <<" "
+                 << matrix[i][j].getIntencity() << '\n';
         }
 }
 
@@ -99,8 +95,11 @@ void Matrix::read(string filename) const {
     int power, intencity;
 
     while (!file.eof() && k < m*n) {
+
         k ++;
-        file >> power >> intencity;
+        char str[256];
+        file.getline(str, 256, ' ');
+        matrix[i][j] = new LED;
         matrix[i][j].setPower(power);
         matrix[i][j].setIntencity(intencity);
 
@@ -111,4 +110,24 @@ void Matrix::read(string filename) const {
         else
             j++;
     }
+}
+
+bool Matrix::operator==(const Matrix &other_) const {
+    if (this->getSizeN() != other_.getSizeN()
+            || this->getSizeM() != other_.getSizeM())
+        return 0;
+
+    int n = this->getSizeN();
+    int m = this->getSizeM();
+    for (int i=0;i<n;i++)
+        for (int j=0;j<m;j++) {
+            int power1 = this->getItem(i, j).getPower();
+            int power2 = other_.getItem(i, j).getPower();
+            int intencity1 = this->getItem(i, j).getIntencity();
+            int intencity2 = other_.getItem(i, j).getIntencity();
+
+            if (power1 != power2 || intencity1 != intencity2)
+                return 0;
+        }
+    return 1;
 }

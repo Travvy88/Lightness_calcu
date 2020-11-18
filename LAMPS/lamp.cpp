@@ -10,11 +10,11 @@ Lamp::Lamp(const Lamp &other){
     intencity = other.intencity;
 }
 
-int Lamp::getPower() const{
+float Lamp::getPower() const{
     return power;
 }
 
-int Lamp::getIntencity() const{
+float Lamp::getIntencity() const{
     return intencity;
 }
 
