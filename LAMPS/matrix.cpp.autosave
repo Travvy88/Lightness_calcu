@@ -24,6 +24,16 @@ Matrix::Matrix(int n_, int m_) {
         matrix[i] = new Cell[m];
 }
 
+Matrix::Matrix(string filename)
+{
+    ifstream file(filename);
+    int numLines = 0;
+    string unused;
+    while ( getline(file, unused) )
+       ++numLines;
+    
+}
+
 
 Matrix::Matrix(const Matrix &other) {
 
@@ -115,7 +125,7 @@ void Matrix::save(string filename) const{
 
 void Matrix::read(string filename) const {
     ifstream file(filename);
-    int i = 0, j = 0, k = 0;
+    int i = 0, j = 0;
     int power, intencity;
     string s;
     while(getline(file, s)) {

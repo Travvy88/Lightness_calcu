@@ -15,26 +15,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-...
 SOURCES += \
-        cell.cpp \
-        first_win.cpp \
-        lamp.cpp \
-        led.cpp \
-        main.cpp \
-        mainwindow.cpp \
-        matrix.cpp
+    main.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    cell.h \
-    first_win.h \
-    lamp.h \
-    led.h \
-    mainwindow.h \
-    matrix.h
+    mainwindow.h
 
 FORMS += \
-    first_win.ui \
     mainwindow.ui
 
 # Default rules for deployment.

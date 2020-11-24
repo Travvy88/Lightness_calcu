@@ -1,7 +1,5 @@
 #include "led.h"
 
-
-
 void LED::setIntencity(int red_, int green_, int blue_) {
     red = red_;
     green = green_;
@@ -21,6 +19,16 @@ int LED::getRed() const {
 
 int LED::getBlue() const {
     return blue;
+}
+
+bool LED::operator==(const LED &l) const
+{
+    if (l.getPower()==this->getPower() && l.getRed()==this->getRed()
+             && l.getBlue()==this->getBlue()
+             && l.getGreen()==this->getGreen())
+        return 1;
+    else
+        return 0;
 }
 
 int LED::getGreen() const {

@@ -12,6 +12,7 @@ public:
     float getIntencity() const;
     void setPower(const int values);
     void setIntencity(const int values);
+    bool operator==(const Lamp&) const;
 
 protected:
     float intencity;

@@ -36,3 +36,11 @@ void Lamp::setIntencity(const int values){
         intencity = values;
 }
 
+bool Lamp::operator==(const Lamp &l) const
+{
+    if (l.getPower()==this->getPower() && l.getIntencity()==this->getIntencity())
+        return 1;
+    else
+        return 0;
+}
+
