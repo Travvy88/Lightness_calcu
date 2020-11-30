@@ -7,6 +7,7 @@
 #include <cmath>
 #include "cell.h"
 #include "sstream"
+#include <QDebug>
 
 using namespace std;
 
@@ -19,9 +20,10 @@ Matrix::Matrix(int n_, int m_) {
         n = 1;
         m = 1;
     }
-    matrix = new Cell*[n];
-    for (int i = 0; i < m; ++i)
-        matrix[i] = new Cell[m];
+    matrix = new Cell*[n]; // выдел€ем массив из 15 указателей типа int Ч это наши строки
+    for (int count = 0; count < n; ++count)
+        matrix[count] = new Cell[m]; // а это наши столбцы
+
 }
 
 
@@ -86,7 +88,7 @@ double  Matrix::countLight(const int x, const int y, const int z, float height) 
             return illuminance;
         }
         else
-            throw 2; //координаты выход€т за рамки помещени€
+            return -1; //координаты выход€т за рамки помещени€
 }
 
 Matrix::~Matrix(){
@@ -115,7 +117,7 @@ void Matrix::save(string filename) const{
 
 void Matrix::read(string filename) const {
     ifstream file(filename);
-    int i = 0, j = 0, k = 0;
+    int i = 0, j = 0;
     int power, intencity;
     string s;
     while(getline(file, s)) {

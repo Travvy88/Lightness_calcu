@@ -74,7 +74,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>2</string>
+    <string>3</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -126,7 +126,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Create Default Matrix</string>
+    <string>Enter room size</string>
    </property>
   </widget>
  </widget>
